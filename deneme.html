@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Üye Kayıt Formu</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2e6ed;
+        margin: 75;
+        padding: 75;
+    }
+    #uyeForm {
+        max-width: 400px;
+        margin: 100;
+        background-color: #d0e8f3;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="password"] {
+        width: 100; /* Genişlik hesaplama */
+        padding: 8px;
+        margin-bottom: 30px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #a04575;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #e7d0dc;
+    }
+</style>
+
+<script>
+$(document).ready(function(){
+    $("#kaydetBtn").click(function(){
+        // Form alanlarından değerleri al
+        var eposta = $("#eposta").val();
+        var ad = $("#ad").val();
+        var soyad = $("#soyad").val();
+        var cepTelefonu = $("#cepTelefonu").val();
+        var sifre = $("#sifre").val();
+        var sifreTekrar = $("#sifreTekrar").val();
+
+        // Basit bir e-posta formatı kontrolü
+        var epostaRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!epostaRegex.test(eposta)) {
+            alert("Geçerli bir e-posta adresi giriniz.");
+            return;
+        }
+
+        // Diğer alanların boş geçilip geçilmediğini kontrol et
+        if (ad === '' || soyad === '' || cepTelefonu === '' || sifre === '' || sifreTekrar === '') {
+            alert("Tüm alanları doldurunuz.");
+            return;
+        }
+
+        // Şifrelerin eşleşip eşleşmediğini kontrol et
+        if (sifre !== sifreTekrar) {
+            alert("Şifreler eşleşmiyor.");
+            return;
+        }
+
+        // Tüm kontroller başarılı ise bilgileri göster ve sayfayı yönlendir
+        var bilgiler = "E-posta: " + eposta + "\n" +
+                        "Ad: " + ad + "\n" +
+                        "Soyad: " + soyad + "\n" +
+                        "Cep Telefonu: " + cepTelefonu;
+        alert(bilgiler);
+        window.location.href = "sayfa2.html";
+    });
+});
+</script>
+</head>
+<body>
+
+<form id="uyeFormu">
+    <label for="eposta">E-posta:</label><br>
+    <input type="text" id="eposta" name="eposta"><br>
+    <label for="ad">Ad:</label><br>
+    <input type="text" id="ad" name="ad"><br>
+    <label for="soyad">Soyad:</label><br>
+    <input type="text" id="soyad" name="soyad"><br>
+    <label for="cepTelefonu">Cep Telefonu:</label><br>
+    <input type="text" id="cepTelefonu" name="cepTelefonu"><br>
+    <label for="sifre">Şifre:</label><br>
+    <input type="password" id="sifre" name="sifre"><br>
+    <label for="sifreTekrar">Şifre Tekrar:</label><br>
+    <input type="password" id="sifreTekrar" name="sifreTekrar"><br><br>
+    <button type="button" id="kaydetBtn">Kaydet</button>
+</form>
+
+</body>
+</html>
